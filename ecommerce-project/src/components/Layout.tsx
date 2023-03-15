@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import React, { ReactNode } from "react"; 
 
 
@@ -20,12 +21,20 @@ return (
         <div className="layoutContainer"> 
 
             <header>
-
+                <nav className="headerNavigation">
+                    <Link href="/" className="headerLink">
+                        Store 
+                    </Link>
+                    <div> 
+                        <Link href="/cart" className="headerLink"> Cart </Link>
+                        <Link href="/login" className="headerLink"> Login </Link>
+                    </div>
+                </nav>
             </header>
-            <main>
+            <main className="mainBody">
                 {children}
             </main>
-            <footer>
+            <footer className="footer"> 
 
             </footer> 
 

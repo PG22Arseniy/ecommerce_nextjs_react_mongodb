@@ -1,0 +1,16 @@
+
+.headerNavigation{
+    display: flex;
+    justify-content: space-between;
+    height: 3rem; 
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); 
+    align-items: center; 
+    padding: 10px 20px;  
+      
+    .headerLink{
+        font-size: large;
+        font-weight: bold; 
+        text-decoration: none;
+        padding: 0.5rem; 
+    }
+} 

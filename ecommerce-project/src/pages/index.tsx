@@ -1,8 +1,8 @@
 import { Layout } from '@/components/Layout'
 
 export default function Home() {
-  return (
-    <Layout>
+  return ( 
+    <Layout title='Home Page'> 
        Home Page
     </Layout> 
   )

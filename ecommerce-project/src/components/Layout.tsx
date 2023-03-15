@@ -34,8 +34,8 @@ return (
             <main className="mainBody">
                 {children}
             </main>
-            <footer className="footer"> 
-
+            <footer className="footer">  
+                <p className="copyrightText"> Copyright 2023 Arseniy Skudaev </p> 
             </footer> 
 
         </div>

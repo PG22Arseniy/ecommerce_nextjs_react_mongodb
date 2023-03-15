@@ -8,7 +8,7 @@ export default function Home() {
        <div className='productList'>
           {
             data.products.map((product)=>(
-              <ProductItem product={product}/>
+              <ProductItem product={product} key={product.slug}/> 
             )) 
           }
        </div>

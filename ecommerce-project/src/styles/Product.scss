@@ -1,0 +1,35 @@
+.itemCard{
+    background-color: aqua;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); 
+    border-radius: 2rem; 
+    width: 250px;
+    height: 500px; 
+
+    .itemImage{
+        height: 50px;
+        width: 50px; 
+        border-radius: 9999px;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); 
+    }
+
+    .itemContent{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.25rem;
+
+        .productName{
+            font-size: large; 
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+        }
+        .productBrand{
+            font-size: medium;
+            font-family: 'Courier New', Courier, monospace;  
+        }
+
+        .productPrice{
+            text-align: center; 
+        }
+    }
+}

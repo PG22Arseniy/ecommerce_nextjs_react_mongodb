@@ -1,15 +1,6 @@
+import { ProductProps } from "@/types"
 
-type ProductProps = {
-    name: string,
-    slug: string,
-    category: string,
-    imageDir?: string
-    brand?: string,
-    rating?: number,
-    numReviews: number,
-    countInStock:number,
-    description: string
-}
+
 type DataProps = {
     products: ProductProps[]
 }
@@ -18,6 +9,7 @@ export const data:DataProps = {
         {
             name: "Red Shirt",
             slug: "red-shirt",
+            price: 50,
             category: "Shirts",
             imageDir: "/images/shirt1.jpg",
             numReviews: 0,
@@ -27,6 +19,7 @@ export const data:DataProps = {
         {
             name: "White Shirt",
             slug: "white-shirt",
+            price: 50,
             category: "Shirts",
             imageDir: "/images/shirt2.jpg",
             numReviews: 0,
@@ -35,7 +28,8 @@ export const data:DataProps = {
         },
         {
             name: "Black Shirt",
-            slug: "vlack-shirt",
+            slug: "black-shirt",
+            price: 50,
             category: "Shirts",
             imageDir: "/images/shirt3.jpg",
             numReviews: 0,
@@ -45,11 +39,33 @@ export const data:DataProps = {
         {
             name: "Yellow Shirt",
             slug: "yellow-shirt",
+            price: 50,
             category: "Shirts",
             imageDir: "/images/shirt4.jpg",
             numReviews: 0,
             countInStock: 7,
             description: "A yellow Shirt" 
+        }
+        ,
+        {
+            name: "Black Jeans",
+            slug: "black-jeans",
+            price: 50,
+            category: "Shirts",
+            imageDir: "/images/jeans1.jpg",
+            numReviews: 0,
+            countInStock: 12,
+            description: "Black jeans"
+        },
+        {
+            name: "Yellow Jeans",
+            slug: "yellow-jeans",
+            price: 50,
+            category: "Jeans",
+            imageDir: "/images/jeans2.jpg",
+            numReviews: 0,
+            countInStock: 7,
+            description: "Yellow jeans" 
         }
     ]
 }

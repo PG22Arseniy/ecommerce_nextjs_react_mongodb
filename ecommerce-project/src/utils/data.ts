@@ -55,7 +55,8 @@ export const data:DataProps = {
             imageDir: "/images/jeans1.jpg",
             numReviews: 0,
             countInStock: 12,
-            description: "Black jeans"
+            description: "Black jeans",
+            brand: "ZARA" 
         },
         {
             name: "Yellow Jeans",

@@ -1,0 +1,18 @@
+
+.customButton{   
+
+    background-color: yellow; 
+    border: 2px gray solid; 
+    padding: 0.5rem;
+    font-weight: bold; 
+
+}
+
+.customButton:hover{
+    background-color: rgb(103, 233, 103); 
+}
+
+.customButton:disabled{ 
+    background-color: gray; 
+} 
+ 

@@ -1,7 +1,5 @@
 .itemCard{
-    background-color: aqua;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); 
-    border-radius: 2rem;   
+    background-color: aqua; 
 
     .itemImage{ 
         width: 250px; 
@@ -30,4 +28,52 @@
             text-align: center; 
         }
     }
+}
+
+.returnLink{
+    padding: 1rem 0;  
+}
+
+.productContent {
+
+    display: grid;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr)); 
+        gap: 0.75rem;
+     }
+
+     .imageArea{
+
+        @media (min-width: 768px) {
+            grid-column: span 2 / span 2;
+        }
+     }
+
+     li {
+        overflow: hidden; 
+     }
+
+     .card{ 
+        padding: 1.25rem; 
+        height: fit-content;   
+        margin-top: 30px;  
+     }
+     .addToCartBtn{
+        margin-top: 15px; 
+        width: 100%; 
+    }    
+}
+.card { 
+    margin-bottom: 1.25rem;
+    display: block;
+    border-radius: 0.5rem;
+    border: 2px rgb(211, 210, 210) solid;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.cardDetails{
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between; 
 }

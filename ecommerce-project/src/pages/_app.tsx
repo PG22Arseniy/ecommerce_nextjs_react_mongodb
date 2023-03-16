@@ -3,6 +3,7 @@ import "../styles/Header.scss"
 import "../styles/Layout.scss"  
 import "../styles/Footer.scss"  
 import "../styles/Product.scss"  
+import "../styles/customButton.scss"  
 
 
 export default function App({ Component, pageProps }: AppProps) {

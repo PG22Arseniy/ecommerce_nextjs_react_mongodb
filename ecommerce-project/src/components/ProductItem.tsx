@@ -1,6 +1,7 @@
 import { ProductProps } from "@/types";
 import Link from "next/link";
 import React, { ReactNode } from "react";
+import { CustomButton } from "./CustomButton";
 
 type ItemProps = {
     product: ProductProps;
@@ -9,7 +10,7 @@ type ItemProps = {
 export const ProductItem = ({product}:ItemProps) => {
 
     return (
-        <div className="itemCard">  
+        <div className="itemCard card">  
             <Link href={`/product/${product.slug}`}> 
                 <img 
                     src = {product.imageDir}
@@ -30,9 +31,9 @@ export const ProductItem = ({product}:ItemProps) => {
                     }
                 </p>
                 <p className="productPrice">${product.price}</p>
-                <button className="addToCartBtn" type="button"> 
+                <CustomButton className='addToCartBtn'> 
                     Add To Cart
-                </button>
+                </CustomButton>  
             </div>
         </div>
     )

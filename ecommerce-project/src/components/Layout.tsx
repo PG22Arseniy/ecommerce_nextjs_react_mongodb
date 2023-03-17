@@ -1,3 +1,4 @@
+import { useStoreContext } from "@/utils/Store";
 import Head from "next/head";
 import Link from "next/link";
 import React, { ReactNode } from "react"; 
@@ -9,6 +10,13 @@ type LayoutProps = {
 }
 
 export const Layout = ({title, children}:LayoutProps) =>{ 
+
+
+    const {state, dispatch } = useStoreContext();
+    const {cart} = state
+
+     
+
 return (
     <div>
 
@@ -25,8 +33,15 @@ return (
                     <Link href="/" className="headerLink">
                         Store 
                     </Link>
-                    <div> 
-                        <Link href="/cart" className="headerLink"> Cart </Link>
+                    <div className="CartLogin"> 
+                        <Link href="/cart" className="headerLink">  
+                            <p>Cart</p>  
+                            {
+                                cart.cartItems != null && cart.cartItems.length > 0
+                                ? <span className="cartNum">{cart.GetCartNumber()} </span>
+                                : ''
+                            }  
+                        </Link>
                         <Link href="/login" className="headerLink"> Login </Link>
                     </div>
                 </nav>

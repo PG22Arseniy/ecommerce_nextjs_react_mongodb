@@ -10,3 +10,9 @@ export type ProductProps = {
     countInStock:number,
     description: string
 }
+
+export type CartItemProps = {
+
+    product: ProductProps,
+    quantity: number, 
+}

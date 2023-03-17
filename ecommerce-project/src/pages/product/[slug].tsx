@@ -1,18 +1,39 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useRouter } from 'next/router'
-import { ProductProps } from '@/types'
+import { CartItemProps, ProductProps } from '@/types'
 import { data } from '@/utils/data'
 import { Layout } from '@/components/Layout'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CustomButton } from '@/components/CustomButton'
+import { STORE_ACTION_TYPE, useStoreContext } from '@/utils/Store'
+import { Highlight } from '@/global'
+
 
 
 const ProductScreen = () => {
 
+
     const { query } = useRouter()
     const { slug } = query
     const product:ProductProps|undefined  = data.products.find(item => item.slug === slug)
+    const {state, dispatch} = useStoreContext()
+
+    if (product == null ) return;
+
+    const AddToCart = () => {
+
+        const existItem: CartItemProps | undefined = state.cart.cartItems.find(item=>item?.product.slug === product.slug)
+
+        const quantity:number = existItem ? existItem.quantity + 1 : 1
+
+        if (quantity > product.countInStock) {
+            Highlight(document.getElementById("inStock")!, "red", 3)   
+            return
+        } 
+
+        dispatch({type: STORE_ACTION_TYPE.ADD_TO_CART, payload:{item:{product:{...product}, quantity: quantity}}})  
+    }
 
     if (product == null) return <div> Not Found </div>
 
@@ -70,7 +91,7 @@ const ProductScreen = () => {
                         <div>${product.price}</div>
                     </div>
                     <div className='cardDetails'> 
-                        <div>
+                        <div id="inStock">
                             {
                                 product.countInStock > 0 
                                 ? `In Stock (${product.countInStock} remaining)` 
@@ -78,7 +99,7 @@ const ProductScreen = () => {
                             }
                         </div>
                     </div>
-                    <CustomButton className='addToCartBtn'> Add to Cart </CustomButton>
+                    <CustomButton className='addToCartBtn' onClick = {AddToCart}> Add to Cart </CustomButton> 
                 </div>
             </div>
         </Layout>

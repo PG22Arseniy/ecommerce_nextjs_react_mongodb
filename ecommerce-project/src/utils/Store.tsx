@@ -4,7 +4,7 @@ import {Dispatch, ReactNode, createContext, useContext, useReducer} from 'react'
 
 export const enum STORE_ACTION_TYPE {
     ADD_TO_CART,
-    REMOVE_FROM_CART,
+    REMOVE_FROM_CART
 }
 
 type StoreAction = { 

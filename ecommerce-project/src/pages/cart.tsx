@@ -1,0 +1,85 @@
+import { CustomButton } from "@/components/CustomButton";
+import { Layout } from "@/components/Layout";
+import { CartItemProps } from "@/types";
+import { STORE_ACTION_TYPE, useStoreContext } from "@/utils/Store"
+import Link from "next/link";
+import React from "react";
+ 
+const Cart = () => {
+    
+    const {state, dispatch} = useStoreContext();
+
+    const {cart} = state
+
+    const removeItemFromCart = (item:CartItemProps) => {
+        dispatch({type: STORE_ACTION_TYPE.REMOVE_FROM_CART, payload:{item}}) 
+    }
+
+    return (
+       <Layout title="Cart">
+            <h1 className="cartTitle"> Shopping Cart </h1>
+
+            {
+                cart.cartItems.length === 0                
+                ?            
+                <div className="emptyCart">
+                    <p> Cart is empty </p>
+                    <Link href="/"> Go Shopping </Link>
+                </div>
+                : 
+                <div className="cartGrid">
+                    <div className="cartProducts">
+                        <table>
+                            <thead> 
+                                <tr>
+                                    <th> Item </th>
+                                    <th> Quantity </th>
+                                    <th> Price </th>
+                                    <th> Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {cart.cartItems.map((item)=>(
+                                    <tr key={item?.product.slug}>
+                                        <td>
+                                            <Link href = {`/product/${item?.product.slug}`}> 
+                                                <div className="ImageName">
+                                                    <img
+                                                        src={item?.product.imageDir}
+                                                        alt={item?.product.name}
+                                                        width={50}
+                                                        height={50}       
+                                                    />
+                                                    <p> {item?.product.name} </p>
+                                                </div>
+                                            </Link>
+                                        </td>
+                                        <td>
+                                            {item?.quantity}
+                                        </td>
+                                        <td>
+                                            {item?.quantity! * item?.product.price!} 
+                                        </td>
+                                        <td>
+                                            <CustomButton onClick={()=>{removeItemFromCart(item!)}} value={item?.product.slug}> Delete </CustomButton>
+                                        </td> 
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="checkout card"> 
+                        <div className="total"> 
+                            <p>Items: {cart.GetCartItemCount()}, Price: {cart.GetCartPrice()}</p>
+                        </div>
+                        <CustomButton><a href="/checkout"> Checkout </a> </CustomButton>
+                    </div> 
+                </div> 
+
+            } 
+
+       </Layout>
+    )
+}
+
+export default Cart; 

@@ -19,18 +19,30 @@ type CartStateProps = {
         cartItems: (CartItemProps | undefined)[] 
         date?: Date,
         Price?: number,
-        GetCartNumber ():number
+        GetCartItemCount ():number,
+        GetCartPrice ():number
     } 
 
 }
 const initialState:CartStateProps = {
     cart: {
         cartItems: [],
-        GetCartNumber: function (): number {
+        GetCartItemCount: function (): number {
 
             let sum:number = 0
             this.cartItems.forEach(item => {
                 sum = sum + item?.quantity! 
+            })
+
+            return sum;  
+        },
+
+        GetCartPrice: function (): number { 
+
+            let sum:number = 0
+
+            this.cartItems.forEach(item => {
+                sum = sum + item?.quantity! * item?.product.price! 
             })
 
             return sum;  
@@ -64,7 +76,16 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
         }  
 
         case STORE_ACTION_TYPE.REMOVE_FROM_CART:{ 
-            return state
+
+            const itemToRemove = action.payload.item 
+
+            if (!itemToRemove) return state
+
+            const cartItems = state.cart.cartItems.filter(item=>
+                item?.product.slug !== itemToRemove.product.slug
+            )
+
+            return {...state, cart: {...state.cart, cartItems }} 
         }
         
         default: return state

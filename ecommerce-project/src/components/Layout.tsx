@@ -34,11 +34,11 @@ return (
                         Store 
                     </Link>
                     <div className="CartLogin"> 
-                        <Link href="/cart" className="headerLink">  
+                        <Link href="/cart" className="headerLink">   
                             <p>Cart</p>  
                             {
-                                cart.cartItems != null && cart.cartItems.length > 0
-                                ? <span className="cartNum">{cart.GetCartNumber()} </span>
+                                cart.cartItems != null && cart.cartItems.length > 0 
+                                ? <span className="cartNum">{cart.GetCartItemCount()} </span>
                                 : ''
                             }  
                         </Link>

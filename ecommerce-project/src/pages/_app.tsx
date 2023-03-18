@@ -4,6 +4,7 @@ import "../styles/Layout.scss"
 import "../styles/Footer.scss"  
 import "../styles/Product.scss"  
 import "../styles/customButton.scss"  
+import "../styles/ShoppingCart.scss"  
 import { StoreProvider } from '@/utils/Store'
 
 

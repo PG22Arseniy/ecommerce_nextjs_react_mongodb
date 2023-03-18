@@ -7,6 +7,7 @@ type DataProps = {
 export const data:DataProps = { 
     products: [
         {
+            id: 1,
             name: "Red Shirt",
             slug: "red-shirt",
             price: 50,
@@ -17,6 +18,7 @@ export const data:DataProps = {
             description: "A red Shirt"
         },
         {
+            id: 2,
             name: "White Shirt",
             slug: "white-shirt",
             price: 50,
@@ -27,6 +29,7 @@ export const data:DataProps = {
             description: "A white Shirt"
         },
         {
+            id: 3,
             name: "Black Shirt",
             slug: "black-shirt",
             price: 50,
@@ -37,6 +40,7 @@ export const data:DataProps = {
             description: "A black Shirt"
         },
         {
+            id: 4,
             name: "Yellow Shirt",
             slug: "yellow-shirt",
             price: 50,
@@ -48,6 +52,7 @@ export const data:DataProps = {
         }
         ,
         {
+            id: 5,
             name: "Black Jeans",
             slug: "black-jeans",
             price: 50,
@@ -59,6 +64,7 @@ export const data:DataProps = {
             brand: "ZARA" 
         },
         {
+            id: 6,
             name: "Yellow Jeans",
             slug: "yellow-jeans",
             price: 50,

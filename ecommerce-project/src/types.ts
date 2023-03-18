@@ -1,4 +1,5 @@
 export type ProductProps = {
+    id: number,
     name: string,
     slug: string,
     price:number,
@@ -14,5 +15,5 @@ export type ProductProps = {
 export type CartItemProps = {
 
     product: ProductProps,
-    quantity: number, 
+    quantity: number,  
 }

@@ -3,7 +3,7 @@ import { Layout } from "@/components/Layout";
 import { CartItemProps } from "@/types";
 import { STORE_ACTION_TYPE, useStoreContext } from "@/utils/Store"
 import Link from "next/link";
-import { it } from "node:test";
+import dynamic from "next/dynamic";
 import React from "react";
  
 const Cart = () => {
@@ -81,7 +81,7 @@ const Cart = () => {
                                                 } 
                                                 QuantityChange(quantity, item!)
                                             }}
-                                            />
+                                            /> 
                                         </td>
                                         <td>
                                             {item?.quantity! * item?.product.price!} 
@@ -98,7 +98,7 @@ const Cart = () => {
                         <div className="total"> 
                             <p>Items: {cart.GetCartItemCount()}, Price: {cart.GetCartPrice()}</p>
                         </div>
-                        <CustomButton><a href="/checkout"> Checkout </a> </CustomButton>
+                        <CustomButton>CheckOut</CustomButton>
                     </div> 
                 </div> 
 
@@ -108,4 +108,4 @@ const Cart = () => {
     )
 }
 
-export default Cart; 
+export default dynamic(()=>Promise.resolve(Cart), {ssr:false}); 

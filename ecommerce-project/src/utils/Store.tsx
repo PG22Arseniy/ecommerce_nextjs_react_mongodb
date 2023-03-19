@@ -1,6 +1,6 @@
 import { CartItemProps, ProductProps } from '@/types';
 import {Dispatch, ReactNode, createContext, useContext, useReducer} from 'react'
-
+import Cookies from 'js-cookie'
 
 export const enum STORE_ACTION_TYPE {
     ADD_TO_CART,
@@ -26,7 +26,9 @@ type CartStateProps = {
 }
 const initialState:CartStateProps = {
     cart: {
-        cartItems: [],
+        cartItems: Cookies.get('cartItems')
+            ? JSON.parse(Cookies.get('cartItems')!)
+            : [],
         GetCartItemCount: function (): number {
 
             let sum:number = 0
@@ -72,6 +74,8 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
                 ItemIsNew ? [...state.cart.cartItems, newItem]  
                           : [...state.cart.cartItems] 
 
+            Cookies.set('cartItems', JSON.stringify(cartItems))     
+
             return {...state, cart: {...state.cart, cartItems }} 
         }  
 
@@ -83,13 +87,17 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
 
             const cartItems = state.cart.cartItems.filter(item=>
                 item?.product.slug !== itemToRemove.product.slug
-            )
+            ) 
+
+            Cookies.set('cartItems', JSON.stringify(cartItems))   
 
             return {...state, cart: {...state.cart, cartItems }} 
         }
         
         default: return state
     } 
+
+
 }
 
 

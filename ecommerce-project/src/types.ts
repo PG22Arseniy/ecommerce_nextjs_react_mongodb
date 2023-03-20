@@ -17,3 +17,10 @@ export type CartItemProps = {
     product: ProductProps,
     quantity: number,  
 }
+
+export type UsersProps = {
+    name: string,
+    email: string,
+    password: string,
+    isAdmin: Boolean
+}

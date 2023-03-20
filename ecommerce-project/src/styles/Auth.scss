@@ -1,0 +1,25 @@
+.authForm{
+    margin: auto;
+    max-width: 768px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  
+
+    h1{
+        margin-bottom: 1rem;
+        font-size: x-large;
+    }
+    .inputRow{
+        margin-bottom: 1rem;  
+        width: 100%; 
+        display: flex;
+        justify-content: space-between; 
+        gap: 20px; 
+        align-items: center; 
+    }
+    .authLink {
+        margin: 25px; 
+        color: blueviolet; 
+    }
+}

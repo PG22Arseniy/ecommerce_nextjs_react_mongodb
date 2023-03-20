@@ -1,7 +1,9 @@
 import { useStoreContext } from "@/utils/Store";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import React, { ReactNode, useEffect, useState } from "react"; 
+import { ToastContainer } from "react-toastify";
 
 
 type LayoutProps = {
@@ -11,6 +13,8 @@ type LayoutProps = {
 
 export const Layout = ({title, children}:LayoutProps) =>{ 
 
+
+    const {status, data:session} = useSession()
 
     const {state, dispatch } = useStoreContext();
     const {cart} = state
@@ -30,6 +34,9 @@ return (
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
+
+        <ToastContainer position="bottom-center" limit={1}/> 
+
         <div className="layoutContainer"> 
 
             <header>
@@ -46,7 +53,18 @@ return (
                                 : ''
                             }  
                         </Link>
-                        <Link href="/login" className="headerLink"> Login </Link>
+
+
+                        {
+                            status === "loading" 
+                                ? "Loading"
+                                : session?.user 
+                                    ? session.user.name 
+                                    : <Link href="/login" className="headerLink"> 
+                                        Login 
+                                      </Link>                                 
+                        }
+                      
                     </div>
                 </nav>
             </header>

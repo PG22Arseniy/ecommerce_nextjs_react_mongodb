@@ -1,11 +1,12 @@
-import { useStoreContext } from "@/utils/Store";
-import { useSession } from "next-auth/react";
+import { STORE_ACTION_TYPE, useStoreContext } from "@/utils/Store";
+import { signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import React, { ReactNode, useEffect, useState } from "react"; 
 import { ToastContainer } from "react-toastify";
 import { Menu } from "@headlessui/react";
 import { DropDownLink } from "./DropDownLink";
+import Cookies from "js-cookie";
 
 type LayoutProps = {
     title?:string,
@@ -25,6 +26,13 @@ export const Layout = ({title, children}:LayoutProps) =>{
     useEffect (()=>{
         setItemsCount(cart.GetCartItemCount())
     },[cart.cartItems]) 
+
+    const Logout = () => {
+        Cookies.remove('cart')
+        if (state.cart.cartItems.length > 0)
+            dispatch({type:STORE_ACTION_TYPE.CART_RESET, payload : { item:state.cart.cartItems[0]! }});
+        signOut({callbackUrl:'/login'})
+    } 
 
 return (
     <div>
@@ -73,6 +81,16 @@ return (
                                                     <DropDownLink className = "dropdownLink" href="/profile">
                                                         Profile
                                                     </DropDownLink>
+                                                </Menu.Item>
+                                                <Menu.Item>
+                                                    <DropDownLink className = "dropdownLink" href="/order-history">
+                                                        Order History
+                                                    </DropDownLink>
+                                                </Menu.Item>
+                                                <Menu.Item>
+                                                    <Link className = "dropdownLink" href="#" onClick={Logout}>
+                                                        Logout 
+                                                    </Link>
                                                 </Menu.Item>
                                             </Menu.Items>
                                         </Menu>

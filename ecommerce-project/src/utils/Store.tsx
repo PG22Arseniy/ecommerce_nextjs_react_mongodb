@@ -4,7 +4,17 @@ import Cookies from 'js-cookie'
 
 export const enum STORE_ACTION_TYPE {
     ADD_TO_CART,
-    REMOVE_FROM_CART
+    REMOVE_FROM_CART,
+    CART_RESET
+}
+export const enum PAYMENT_METHOD{
+    PAYPAL,
+    CREDIT_CARD,
+    DEBIT_CARD,
+    CASH,
+    ETRANSFER,
+    BONUSES,
+    NONE
 }
 
 type StoreAction = { 
@@ -18,7 +28,15 @@ type CartStateProps = {
     cart: {
         cartItems: (CartItemProps | undefined)[] 
         date?: Date,
-        Price?: number,
+        shippingAddress?: {
+            location: {
+                street: string,
+                houseNum: number,
+                SpecificHouseNum?: string
+                Apt: number
+            }
+        },
+        preferredPaymentMethod?: PAYMENT_METHOD.NONE,
         GetCartItemCount ():number,
         GetCartPrice ():number
     } 
@@ -93,6 +111,11 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
 
             return {...state, cart: {...state.cart, cartItems }} 
         }
+
+        case STORE_ACTION_TYPE.CART_RESET: {
+            const cartItems: (CartItemProps | undefined)[] = [];
+            return {...state, cart: {...state.cart, cartItems }} 
+        }   
         
         default: return state
     } 
@@ -123,5 +146,6 @@ export function StoreProvider ({children}: StoreProviderProps) {
 export const useStoreContext = () => {
     return useContext(Store) as StoreContext 
 }
+
 
 

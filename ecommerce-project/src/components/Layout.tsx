@@ -4,7 +4,8 @@ import Head from "next/head";
 import Link from "next/link";
 import React, { ReactNode, useEffect, useState } from "react"; 
 import { ToastContainer } from "react-toastify";
-
+import { Menu } from "@headlessui/react";
+import { DropDownLink } from "./DropDownLink";
 
 type LayoutProps = {
     title?:string,
@@ -18,7 +19,7 @@ export const Layout = ({title, children}:LayoutProps) =>{
 
     const {state, dispatch } = useStoreContext();
     const {cart} = state
-
+    
     const [cartItemsCount, setItemsCount]  = useState(0)
 
     useEffect (()=>{
@@ -44,6 +45,9 @@ return (
                     <Link href="/" className="headerLink">
                         Store 
                     </Link>
+                    <Link href="/collection" className="headerLink">
+                        Best Off
+                    </Link>
                     <div className="CartLogin"> 
                         <Link href="/cart" className="headerLink">   
                             <p>Cart</p>   
@@ -59,7 +63,20 @@ return (
                             status === "loading" 
                                 ? "Loading"
                                 : session?.user 
-                                    ? session.user.name 
+                                    ? ( 
+                                        <Menu as="div" className="userMenu">
+                                            <Menu.Button className="userButton">
+                                                {session.user.name}
+                                            </Menu.Button>
+                                            <Menu.Items className="contextMenu">
+                                                <Menu.Item>
+                                                    <DropDownLink className = "dropdownLink" href="/profile">
+                                                        Profile
+                                                    </DropDownLink>
+                                                </Menu.Item>
+                                            </Menu.Items>
+                                        </Menu>
+                                    ) 
                                     : <Link href="/login" className="headerLink"> 
                                         Login 
                                       </Link>                                 

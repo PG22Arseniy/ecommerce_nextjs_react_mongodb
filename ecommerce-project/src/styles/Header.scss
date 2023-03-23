@@ -19,6 +19,42 @@
 
     .CartLogin {
         display: flex; 
+        align-items: center; 
+        .userMenu {
+            display: inline-block;
+            position: relative;
+
+            .userButton{
+                color: white;  
+                background-color: blueviolet ; 
+                border:none;
+                border-radius: 2rem;  
+                margin: 1rem; 
+                padding: 5px 10px;    
+                font-weight: bold; 
+            }
+            .userButton:hover{
+                color: blueviolet;  
+                background-color: wheat ;  
+            } 
+
+            .contextMenu {
+                position: absolute;
+                right: 0;
+                width: 14rem;
+                transform-origin: top right; 
+                box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+           
+                .dropdownLink{
+                    display: flex;
+                    padding: 0.5rem;
+                }
+                .dropdownLink:hover{
+                    background-color: rgb(185, 184, 184);
+                }
+           
+            }
+        }
     }
 
     .cartNum{

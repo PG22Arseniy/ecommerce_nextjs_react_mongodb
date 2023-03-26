@@ -6,6 +6,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import React from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
  
 const Cart = () => {
     
@@ -14,6 +15,8 @@ const Cart = () => {
     const {cart} = state
 
     const router = useRouter() 
+
+    const {status, data:session} = useSession()
 
     const removeItemFromCart = (item:CartItemProps) => {
         dispatch({type: STORE_ACTION_TYPE.REMOVE_FROM_CART, payload:{item}}) 
@@ -25,7 +28,12 @@ const Cart = () => {
     }
 
     const checkoutHandler = () => {
-        router.push ("/shipping")  
+
+        if (session?.user)
+            router.push ("/shipping") 
+        else
+            router.push("/login?checkout")   
+
     }
 
     return (

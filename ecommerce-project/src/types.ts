@@ -32,5 +32,4 @@ export type ShippingAddressProps = {
     city: string, 
     postalCode: string, 
     country: string, 
-    location: string 
 }

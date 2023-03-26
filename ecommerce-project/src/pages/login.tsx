@@ -5,9 +5,13 @@ import React, { FormEvent, useEffect, useRef } from "react";
 import {signIn, useSession} from 'next-auth/react'
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { redirect } from "next/dist/server/api-utils";
 
-const Login = () => {
+type LoginProps = {
+    checkout: Boolean
+}
+
+
+const Login = (props: LoginProps) => {
 
 
     const router = useRouter()
@@ -17,7 +21,10 @@ const Login = () => {
 
     useEffect(()=>{
         if (session?.user){
-            router.push('/') 
+            if (document.location.search.includes("checkout"))
+                router.push('/shipping')
+            else    
+                router.push('/')  
         }
     },[router, session, redirect])
 
@@ -40,6 +47,7 @@ const Login = () => {
             if (result?.error){
                 toast.error (result.error)
             }
+
         } catch (error) {
             console.log ("cannot authenticate") 
         }

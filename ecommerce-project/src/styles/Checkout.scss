@@ -1,25 +1,47 @@
-.checkoutComp{
-    margin-bottom: 1.25rem;
-    display: flex;
-    flex-wrap: wrap;
-    border-bottom: grey 2px solid;     
-
-    .checkoutStep{
-        flex: "1 1 0%";  
-        text-align: center;
-        border-bottom-width: 2px;
-        margin:  0.5rem 2rem ;       
-
-    }
-
-    .enabled {
+.checkoutHeader {
+    margin-top: 0.5rem; 
+    display:  flex;
+    flex-direction: column;
+    align-items: center; 
+    
+    .enabledBtn{
+        color: #6366F1 ;
         border-color: #6366F1; 
-        color: #6366F1;
     }
 
-    .disabled {
-        border-color: #9CA3AF;
-        color: #9CA3AF; 
+    .enabledBtn:hover {
+        color: white ;
+        border-color: #6366F1;    
+        background-color: #6366F1;   
+    }
+
+
+    .checkoutComp{
+        margin-bottom: 1.25rem;
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: grey 2px solid;     
+
+        .checkoutStep{
+            flex: "1 1 0%";  
+            text-align: center;
+            border-bottom-width: 2px;
+            margin:  0.5rem 2rem ;       
+
+        }
+
+        .enabled {
+            border-color: #6366F1; 
+            color: #6366F1;
+        }
+
+        .disabled {
+            border-color: #9CA3AF;
+            color: #9CA3AF; 
+        }
+        .currentStep {
+            border-bottom: #6366F1 1px solid;  
+        } 
     }
 }
 
@@ -50,5 +72,45 @@
 }
 
 .paymentScreen {
+    h1{
+        text-align: center; 
+    }
+    h2{
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+        font-weight: 400; 
+        font-size: large;   
+    }
+
+    form{
+        margin: 0 auto;
+        max-width: 768px;
+        display: flex;
+        flex-direction: column;
+
+        .paymentOption{
+            margin: 1rem; 
+            display: flex;
+            align-items: center; 
+
+            input{
+                padding: 1.5rem;
+                outline: none;
+            }
+            input:focus{  
+                box-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+            }
+
+            label{
+                padding-left: 1rem;
+                padding-top: 2.5px ;          
+            }
+        }
+
+        button{
+            margin-top: 1rem; 
+        }
+    }
+
     
+
 }

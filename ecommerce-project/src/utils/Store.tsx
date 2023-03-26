@@ -1,6 +1,7 @@
 import { CartItemProps, ProductProps, ShippingAddressProps } from '@/types';
 import {Dispatch, ReactNode, createContext, useContext, useReducer} from 'react'
 import Cookies from 'js-cookie'
+import { stat } from 'fs';
 
 export const enum STORE_ACTION_TYPE {
     ADD_TO_CART,
@@ -8,14 +9,13 @@ export const enum STORE_ACTION_TYPE {
     CART_RESET,
     SAVE_SHIPPING_ADDRESS
 }
-export const enum PAYMENT_METHOD{
-    PAYPAL,
-    CREDIT_CARD,
-    DEBIT_CARD,
-    CASH,
-    ETRANSFER,
-    BONUSES,
-    NONE
+export enum PAYMENT_METHOD{
+    PAYPAL = "Paypal",
+    CREDIT_CARD = "Credit",
+    DEBIT_CARD = "Debit",
+    CASH = "Cash",
+    ETRANSFER = "ETransfer",
+    BONUSES = "Bonuses", 
 }
 
 type StoreAction = { 
@@ -28,10 +28,10 @@ type StoreAction = {
 
 type CartStateProps = {
     cart: {
-        cartItems: (CartItemProps | undefined)[] 
+        cartItems: CartItemProps[] 
         date?: Date,
         shippingAddress?: ShippingAddressProps
-        preferredPaymentMethod?: PAYMENT_METHOD.NONE,
+        PaymentMethod?: PAYMENT_METHOD.DEBIT_CARD,
         GetCartItemCount ():number,
         GetCartPrice ():number
     } 
@@ -76,6 +76,8 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
 
             const newItem = action.payload.item 
 
+            if (!newItem) return state
+
             let ItemIsNew = true
             state.cart.cartItems.map(item=>{
                 if (item?.product.slug === newItem?.product.slug) 
@@ -88,11 +90,13 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
 
             })
             
-            const cartItems: (CartItemProps | undefined) [] = 
+            const cartItems: CartItemProps [] = 
                 ItemIsNew ? [...state.cart.cartItems, newItem]  
                           : [...state.cart.cartItems] 
 
-            Cookies.set('cartItems', JSON.stringify(cartItems))     
+            Cookies.set('cartItems', JSON.stringify(cartItems))   
+            
+            
 
             return {...state, cart: {...state.cart, cartItems }} 
         }  
@@ -113,7 +117,7 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
         }
 
         case STORE_ACTION_TYPE.CART_RESET: {
-            const cartItems: (CartItemProps | undefined)[] = [];
+            const cartItems: (CartItemProps)[] = [];
             return {...state, cart: {...state.cart, cartItems }} 
         }   
 

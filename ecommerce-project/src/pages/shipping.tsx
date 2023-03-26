@@ -34,7 +34,7 @@ const Shipping = () => {
 
         dispatch ({
             type: STORE_ACTION_TYPE.SAVE_SHIPPING_ADDRESS,
-            payload: {shippingAddress: {fullName, address, city, postalCode, country, location}}
+            payload: {shippingAddress: {fullName, address, city, postalCode, country}}
         })
 
 

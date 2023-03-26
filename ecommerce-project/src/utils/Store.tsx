@@ -1,11 +1,12 @@
-import { CartItemProps, ProductProps } from '@/types';
+import { CartItemProps, ProductProps, ShippingAddressProps } from '@/types';
 import {Dispatch, ReactNode, createContext, useContext, useReducer} from 'react'
 import Cookies from 'js-cookie'
 
 export const enum STORE_ACTION_TYPE {
     ADD_TO_CART,
     REMOVE_FROM_CART,
-    CART_RESET
+    CART_RESET,
+    SAVE_SHIPPING_ADDRESS
 }
 export const enum PAYMENT_METHOD{
     PAYPAL,
@@ -20,7 +21,8 @@ export const enum PAYMENT_METHOD{
 type StoreAction = { 
     type: STORE_ACTION_TYPE
     payload: {
-        item: CartItemProps, 
+        item?: CartItemProps,  
+        shippingAddress?: ShippingAddressProps
     }
 }
 
@@ -28,14 +30,7 @@ type CartStateProps = {
     cart: {
         cartItems: (CartItemProps | undefined)[] 
         date?: Date,
-        shippingAddress?: {
-            location: {
-                street: string,
-                houseNum: number,
-                SpecificHouseNum?: string
-                Apt: number
-            }
-        },
+        shippingAddress?: ShippingAddressProps
         preferredPaymentMethod?: PAYMENT_METHOD.NONE,
         GetCartItemCount ():number,
         GetCartPrice ():number
@@ -47,6 +42,9 @@ const initialState:CartStateProps = {
         cartItems: Cookies.get('cartItems')
             ? JSON.parse(Cookies.get('cartItems')!)
             : [],
+        shippingAddress: Cookies.get('shippingAddress')
+            ? JSON.parse(Cookies.get('shippingAddress')!)
+            : {},
         GetCartItemCount: function (): number {
 
             let sum:number = 0
@@ -80,10 +78,12 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
 
             let ItemIsNew = true
             state.cart.cartItems.map(item=>{
-                if (item?.product.slug === newItem.product.slug) 
+                if (item?.product.slug === newItem?.product.slug) 
                 {
+                    if (!item) return
+
                     ItemIsNew = false
-                    item.quantity = newItem.quantity
+                    item.quantity = newItem?.quantity!
                 }
 
             })
@@ -116,6 +116,22 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
             const cartItems: (CartItemProps | undefined)[] = [];
             return {...state, cart: {...state.cart, cartItems }} 
         }   
+
+        case STORE_ACTION_TYPE.SAVE_SHIPPING_ADDRESS:{
+            
+            if (!action.payload.shippingAddress) return state
+
+            return {
+                ...state, 
+                cart: {
+                     ...state.cart,
+                     shippingAddress: {
+                        ...state.cart.shippingAddress,
+                        ...action.payload.shippingAddress
+                     }
+                }
+            }
+        }
         
         default: return state
     } 

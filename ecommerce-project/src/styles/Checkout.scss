@@ -1,0 +1,54 @@
+.checkoutComp{
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: grey 2px solid;     
+
+    .checkoutStep{
+        flex: "1 1 0%";  
+        text-align: center;
+        border-bottom-width: 2px;
+        margin:  0.5rem 2rem ;       
+
+    }
+
+    .enabled {
+        border-color: #6366F1; 
+        color: #6366F1;
+    }
+
+    .disabled {
+        border-color: #9CA3AF;
+        color: #9CA3AF; 
+    }
+}
+
+.shippingForm{ 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+
+    h1{
+        text-align: center;  
+    }
+    .inputRow {
+        display: flex;  
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;  
+        margin: 0.5rem;   
+
+        input{
+            width: 60%;      
+        }
+    }
+
+    button {
+        margin: 1rem 0; 
+    }
+}
+
+.paymentScreen {
+    
+}

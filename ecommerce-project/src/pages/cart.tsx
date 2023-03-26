@@ -5,12 +5,15 @@ import { STORE_ACTION_TYPE, useStoreContext } from "@/utils/Store"
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import React from "react";
+import { useRouter } from "next/router";
  
 const Cart = () => {
     
     const {state, dispatch} = useStoreContext();
 
     const {cart} = state
+
+    const router = useRouter() 
 
     const removeItemFromCart = (item:CartItemProps) => {
         dispatch({type: STORE_ACTION_TYPE.REMOVE_FROM_CART, payload:{item}}) 
@@ -19,6 +22,10 @@ const Cart = () => {
     const QuantityChange = (quantity:number, item: CartItemProps) =>{  
        
         dispatch({type: STORE_ACTION_TYPE.ADD_TO_CART, payload:{item:{product:{...item.product}, quantity: quantity}}})
+    }
+
+    const checkoutHandler = () => {
+        router.push ("/shipping")  
     }
 
     return (
@@ -98,7 +105,7 @@ const Cart = () => {
                         <div className="total"> 
                             <p>Items: {cart.GetCartItemCount()}, Price: {cart.GetCartPrice()}</p>
                         </div>
-                        <CustomButton>CheckOut</CustomButton>
+                        <CustomButton onClick={checkoutHandler}>CheckOut</CustomButton>
                     </div> 
                 </div> 
 

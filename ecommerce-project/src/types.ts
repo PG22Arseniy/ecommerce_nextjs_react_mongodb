@@ -24,3 +24,13 @@ export type UsersProps = {
     password: string,
     isAdmin: Boolean
 }
+
+
+export type ShippingAddressProps = {
+    fullName: string, 
+    address: string, 
+    city: string, 
+    postalCode: string, 
+    country: string, 
+    location: string 
+}

@@ -39,6 +39,7 @@
             } 
 
             .contextMenu {
+                border: 1px solid blueviolet;    
                 position: absolute;
                 right: 0;
                 width: 14rem;
@@ -47,8 +48,10 @@
            
                 .dropdownLink{
                     display: flex;
-                    padding: 0.5rem;
-                }
+                    padding: 0.5rem; 
+                    background-color: white; 
+                    border: 1px solid blueviolet;   
+                 }
                 .dropdownLink:hover{
                     background-color: rgb(185, 184, 184);
                 }

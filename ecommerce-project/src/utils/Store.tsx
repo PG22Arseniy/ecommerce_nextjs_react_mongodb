@@ -7,7 +7,8 @@ export const enum STORE_ACTION_TYPE {
     ADD_TO_CART,
     REMOVE_FROM_CART,
     CART_RESET,
-    SAVE_SHIPPING_ADDRESS
+    SAVE_SHIPPING_ADDRESS,
+    SET_PAYMENT_METHOD
 }
 export enum PAYMENT_METHOD{
     PAYPAL = "Paypal",
@@ -22,7 +23,8 @@ type StoreAction = {
     type: STORE_ACTION_TYPE
     payload: {
         item?: CartItemProps,  
-        shippingAddress?: ShippingAddressProps
+        shippingAddress?: ShippingAddressProps,
+        PaymentMethod?: PAYMENT_METHOD 
     }
 }
 
@@ -30,8 +32,8 @@ type CartStateProps = {
     cart: {
         cartItems: CartItemProps[] 
         date?: Date,
-        shippingAddress?: ShippingAddressProps
-        PaymentMethod?: PAYMENT_METHOD.DEBIT_CARD,
+        shippingAddress: ShippingAddressProps
+        PaymentMethod: PAYMENT_METHOD,
         GetCartItemCount ():number,
         GetCartPrice ():number
     } 
@@ -45,6 +47,11 @@ const initialState:CartStateProps = {
         shippingAddress: Cookies.get('shippingAddress')
             ? JSON.parse(Cookies.get('shippingAddress')!)
             : {},
+
+        PaymentMethod: Cookies.get('PaymentMethod')
+            ? Cookies.get('PaymentMethod') as PAYMENT_METHOD
+            : PAYMENT_METHOD.CASH,
+
         GetCartItemCount: function (): number {
 
             let sum:number = 0
@@ -133,6 +140,18 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
                         ...state.cart.shippingAddress,
                         ...action.payload.shippingAddress
                      }
+                }
+            }
+        }
+
+        case STORE_ACTION_TYPE.SET_PAYMENT_METHOD:{
+            if (!action.payload.PaymentMethod) return state
+
+            return {
+                ...state, 
+                cart: {
+                     ...state.cart,
+                     PaymentMethod: action.payload.PaymentMethod
                 }
             }
         }

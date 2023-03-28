@@ -19,6 +19,7 @@ const Shipping = () => {
     const cityRef = useRef<HTMLInputElement>(null) ;
     const postalCodeRef = useRef<HTMLInputElement>(null) ;
     const countryRef = useRef<HTMLInputElement>(null) ;
+
     
     const SubmitHandler = (e: FormEvent) => {
 
@@ -57,7 +58,7 @@ const Shipping = () => {
                 onSubmit={SubmitHandler}
             >
                 <h1> Shipping Address </h1>
-
+                
                 <div className="inputRow"> 
                     <label htmlFor="fullName"> Full Name </label>
                     <input type="text" id="fullName" autoFocus required ref = {fullNameRef} />

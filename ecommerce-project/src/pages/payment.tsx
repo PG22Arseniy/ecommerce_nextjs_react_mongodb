@@ -2,17 +2,17 @@ import { CheckoutComp } from "@/components/CheckoutComp";
 import { CustomButton } from "@/components/CustomButton";
 import { Layout } from "@/components/Layout";
 import { Highlight } from "@/global";
-import { PAYMENT_METHOD } from "@/utils/Store";
+import { PAYMENT_METHOD, STORE_ACTION_TYPE, useStoreContext } from "@/utils/Store";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { FormEvent, useState } from "react";
 
 const Payment = () => {
 
     const router = useRouter()
-
-    //type PM = keyof typeof PAYMENT_METHOD
-    const [selectedPM, setSelectedPM] = useState<string>("")
- 
+    const {state, dispatch} = useStoreContext();
+    //type PM = keyof typeof PAYMENT_METHOD 
+    const [selectedPM, setSelectedPM] = useState<string>(state.cart.PaymentMethod)
 
     const submitHandler = (e:FormEvent) => { 
         e.preventDefault()
@@ -20,6 +20,14 @@ const Payment = () => {
             Highlight(document.getElementById("choosePM")!, "red", 3, "white") 
             return
         }  
+
+        dispatch ({
+            type: STORE_ACTION_TYPE.SET_PAYMENT_METHOD,
+            payload: {PaymentMethod: selectedPM as PAYMENT_METHOD}
+        })
+
+        Cookies.set('PaymentMethod', selectedPM) 
+
         router.push("/order") 
     }
 

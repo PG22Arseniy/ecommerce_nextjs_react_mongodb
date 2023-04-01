@@ -7,6 +7,8 @@ const Signup = () => {
 
     const HandleSubmit = (e:FormEvent) => {
         e.preventDefault()
+
+        
     }
 
     return (

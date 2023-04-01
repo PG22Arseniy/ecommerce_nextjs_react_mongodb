@@ -8,18 +8,18 @@ import Image from 'next/image'
 import { CustomButton } from '@/components/CustomButton'
 import { STORE_ACTION_TYPE, useStoreContext } from '@/utils/Store'
 import { Highlight } from '@/global'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import db from '@/utils/db'
+import Product from '../../../models/Product'
 
 
 
-const ProductScreen = () => {
+const ProductScreen = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
-
-    const { query } = useRouter()
-    const { slug } = query
-    const product:ProductProps|undefined  = data.products.find(item => item.slug === slug)
+    const product:ProductProps|undefined  = data
     const {state, dispatch} = useStoreContext()
 
-    if (product == null ) return;
+    if (product == null ) return; 
 
     const AddToCart = () => {
 
@@ -108,3 +108,23 @@ const ProductScreen = () => {
 }
 
 export default ProductScreen; 
+
+export const getServerSideProps:GetServerSideProps =async (context) => {
+   
+
+    const { query } = context
+    const { slug } = query 
+
+    await db.connect()
+
+    const product = await Product.findOne({slug}).lean()  
+    const objProduct = JSON.parse(JSON.stringify (product))  
+
+    await db.disconnect() 
+
+    return {
+      props: { 
+        data: product? objProduct : null  
+      }
+    }
+}

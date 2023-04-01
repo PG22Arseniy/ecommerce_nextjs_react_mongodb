@@ -4,6 +4,9 @@ import React, { ReactNode } from "react";
 import { CustomButton } from "./CustomButton";
 import { Highlight } from "@/global";
 import { STORE_ACTION_TYPE, useStoreContext } from "@/utils/Store";
+import db from "@/utils/db";
+import Product from "../../models/Product";
+import { MongoClient } from "mongodb";
 
 type ItemProps = {
     product: ProductProps;
@@ -15,6 +18,8 @@ export const ProductItem = ({product}:ItemProps) => {
 
     const AddToCart = () => {
 
+        db.connect()
+
         const existItem: CartItemProps | undefined = state.cart.cartItems.find(item=>item?.product.slug === product.slug)
 
         const quantity:number = existItem ? existItem.quantity + 1 : 1
@@ -25,6 +30,8 @@ export const ProductItem = ({product}:ItemProps) => {
         } 
 
         dispatch({type: STORE_ACTION_TYPE.ADD_TO_CART, payload:{item:{product:{...product}, quantity: quantity}}})  
+ 
+         
     }
 
     return (

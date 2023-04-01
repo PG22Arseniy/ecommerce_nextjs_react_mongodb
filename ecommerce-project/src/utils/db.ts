@@ -39,6 +39,14 @@ async function disconnect() {
     }
 }
 
-const db = {connect, disconnect}
+
+const convertToObject = () => {
+//     doc._id = doc._id.toString()
+//     doc.createdAt = doc.createdAt.toString()
+//     doc.updatedAt = doc.updatedAt.toString()
+//     return doc
+ }
+
+const db = {connect, disconnect, convertToObject}
 
 export default db

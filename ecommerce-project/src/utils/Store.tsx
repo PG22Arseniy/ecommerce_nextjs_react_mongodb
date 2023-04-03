@@ -2,13 +2,16 @@ import { CartItemProps, ProductProps, ShippingAddressProps } from '@/types';
 import {Dispatch, ReactNode, createContext, useContext, useReducer} from 'react'
 import Cookies from 'js-cookie'
 import { stat } from 'fs';
+import order from '@/pages/order';
 
 export const enum STORE_ACTION_TYPE {
     ADD_TO_CART,
     REMOVE_FROM_CART,
     CART_RESET,
     SAVE_SHIPPING_ADDRESS,
-    SET_PAYMENT_METHOD
+    SET_PAYMENT_METHOD,
+    COMLETE_ADDRESS_STEP,
+    COMLETE_PAYMENT_STEP
 }
 export enum PAYMENT_METHOD{
     PAYPAL = "Paypal",
@@ -25,6 +28,10 @@ type StoreAction = {
         item?: CartItemProps,  
         shippingAddress?: ShippingAddressProps,
         PaymentMethod?: PAYMENT_METHOD 
+        orderSteps?: {
+            address: Boolean,
+            payment: Boolean,
+        } 
     }
 }
 
@@ -36,6 +43,10 @@ type CartStateProps = {
         PaymentMethod: PAYMENT_METHOD,
         GetCartItemCount ():number,
         GetCartPrice ():number
+        orderSteps: {
+            address: Boolean,
+            payment: Boolean,
+        } 
     } 
 
 }
@@ -51,6 +62,10 @@ const initialState:CartStateProps = {
         PaymentMethod: Cookies.get('PaymentMethod')
             ? Cookies.get('PaymentMethod') as PAYMENT_METHOD
             : PAYMENT_METHOD.CASH,
+
+        orderSteps: Cookies.get('orderSteps')
+            ?  JSON.parse(Cookies.get('orderSteps')!)
+            : {address: false, payment: false},
 
         GetCartItemCount: function (): number {
 
@@ -152,6 +167,38 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
                 cart: {
                      ...state.cart,
                      PaymentMethod: action.payload.PaymentMethod
+                }
+            }
+        }
+
+        case STORE_ACTION_TYPE.COMLETE_ADDRESS_STEP:{
+
+            if (!action.payload.orderSteps) return state
+
+            return {
+                ...state, 
+                cart: {
+                     ...state.cart,
+                     orderSteps : {
+                        ...state.cart.orderSteps,
+                        address: true
+                     }
+                }
+            }
+        }
+
+        case STORE_ACTION_TYPE.COMLETE_PAYMENT_STEP:{
+
+            if (!action.payload.orderSteps) return state
+
+            return {
+                ...state, 
+                cart: {
+                     ...state.cart,
+                     orderSteps : {
+                        ...state.cart.orderSteps,
+                        payment: true
+                     }
                 }
             }
         }

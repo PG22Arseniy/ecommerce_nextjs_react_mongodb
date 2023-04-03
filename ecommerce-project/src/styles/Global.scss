@@ -18,3 +18,22 @@ input:focus{
 body{
     margin: 0; 
 }
+
+.card { 
+    padding: 1rem 0.5rem;  
+    margin-bottom: 1.25rem; 
+    display: block;  
+    border-radius: 0.5rem;
+    border: 2px rgb(211, 210, 210) solid;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.cardDetails{
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;  
+}
+
+.highlight{
+    background-color: rgb(238, 56, 56);
+} 

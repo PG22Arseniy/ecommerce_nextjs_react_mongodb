@@ -7,22 +7,32 @@ import { STORE_ACTION_TYPE, useStoreContext } from "@/utils/Store";
 import db from "@/utils/db";
 import Product from "../../models/Product";
 import { MongoClient } from "mongodb";
+import axios from "axios";
 
 type ItemProps = {
-    product: ProductProps;
+    product: ProductProps,
 }
 
 export const ProductItem = ({product}:ItemProps) => {
 
     const {state, dispatch} = useStoreContext()
 
-    const AddToCart = () => {
+    const AddToCart = async () => { 
 
-        db.connect()
 
         const existItem: CartItemProps | undefined = state.cart.cartItems.find(item=>item?.product.slug === product.slug)
 
         const quantity:number = existItem ? existItem.quantity + 1 : 1
+
+        const {data} = await axios.get (`/api/products/${product.slug}`)     
+
+        if (!data) {
+
+            console.log ('item found in stock')  
+            return
+        } 
+        else console.log ('item found in stock') 
+
 
         if (quantity > product.countInStock) {
             Highlight(document.getElementById(`inStock-${product.slug}`)!, "yellow", 3, "aqua")     

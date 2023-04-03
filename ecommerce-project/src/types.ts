@@ -1,3 +1,6 @@
+
+import { PAYMENT_METHOD } from "./utils/Store"
+
 export type ProductProps = {
     name: string,
     slug: string,
@@ -31,4 +34,11 @@ export type ShippingAddressProps = {
     city: string, 
     postalCode: string, 
     country: string, 
+}
+
+export type OrderType = {
+    orderItems: CartItemProps[],
+    shippingAddress: ShippingAddressProps,
+    paymentMethod: PAYMENT_METHOD,
+    orderPrice: Number
 }

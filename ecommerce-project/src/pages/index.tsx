@@ -5,7 +5,9 @@ import Product from '../../models/Product'
 import { Query } from 'mongoose';
 import { GetServerSideProps, GetStaticProps, InferGetServerSidePropsType, InferGetStaticPropsType } from 'next';
 import { data } from '@/utils/data';
-import { ProductProps } from '@/types';
+import { CartItemProps, ProductProps } from '@/types';
+import axios from 'axios';
+import { STORE_ACTION_TYPE, useStoreContext } from '@/utils/Store';
 
 
 
@@ -20,7 +22,7 @@ export default function Home ({data}:InferGetStaticPropsType<typeof getStaticPro
               products 
               ?
               products.map((product)=>( 
-              <ProductItem product={product} key={product.slug}/> 
+              <ProductItem product={product} key={product.slug} /> 
             ))        
               : <> GETTING DATA FROM DATABASE </>               
           }

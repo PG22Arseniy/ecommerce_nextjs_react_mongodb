@@ -11,6 +11,7 @@ import { Highlight } from '@/global'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import db from '@/utils/db'
 import Product from '../../../models/Product'
+import axios from 'axios'
 
 
 
@@ -21,11 +22,20 @@ const ProductScreen = ({data}:InferGetServerSidePropsType<typeof getServerSidePr
 
     if (product == null ) return; 
 
-    const AddToCart = () => {
+    const AddToCart = async () => {
 
         const existItem: CartItemProps | undefined = state.cart.cartItems.find(item=>item?.product.slug === product.slug)
 
         const quantity:number = existItem ? existItem.quantity + 1 : 1
+
+        const {data} = await axios.get (`/api/products/${product.slug}`)     
+
+        if (!data) {
+
+            console.log ('item found in stock')  
+            return
+        } 
+        else console.log ('item found in stock') 
 
         if (quantity > product.countInStock) {
             Highlight(document.getElementById("inStock")!, "red", 3)   
@@ -37,7 +47,13 @@ const ProductScreen = ({data}:InferGetServerSidePropsType<typeof getServerSidePr
 
     if (product == null) return <div> Not Found </div>
 
+    if (!product) { 
+        return (
+            <Layout> <div className='notFoundProduct'> Product Not Found </div></Layout>
+        )
+    }
     return (
+        
         <Layout title={product.name}>
             <div className="returnLink">
                 <Link href = "/">Back</Link>

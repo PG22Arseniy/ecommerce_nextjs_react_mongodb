@@ -26,10 +26,10 @@ const Shipping = () => {
         e.preventDefault()
 
         const fullName = fullNameRef.current?.value
-        const address = fullNameRef.current?.value
-        const city = fullNameRef.current?.value
-        const postalCode = fullNameRef.current?.value
-        const country = fullNameRef.current?.value
+        const address = addressRef.current?.value
+        const city = cityRef.current?.value
+        const postalCode = postalCodeRef.current?.value
+        const country = countryRef.current?.value 
 
         if (!fullName || !address || !city || !postalCode || !country) return
 
@@ -39,8 +39,6 @@ const Shipping = () => {
         })
 
 
-
-        console.log (fullName, address, city, postalCode, country) 
         Cookies.set('shippingAddress', JSON.stringify({
             fullName, address, city, postalCode, country 
         }))
@@ -58,7 +56,7 @@ const Shipping = () => {
                 onSubmit={SubmitHandler}
             >
                 <h1> Shipping Address </h1>
-                
+
                 <div className="inputRow"> 
                     <label htmlFor="fullName"> Full Name </label>
                     <input type="text" id="fullName" autoFocus required ref = {fullNameRef} />

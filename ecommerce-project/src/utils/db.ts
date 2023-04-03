@@ -8,6 +8,9 @@ type connectionProps = {
 const connection:connectionProps = {isConnected:0};
 
 async function connect() {
+
+    console.log(mongoose.connections) 
+
     if (connection.isConnected){
         console.log("already connected")
         return
@@ -40,13 +43,6 @@ async function disconnect() {
 }
 
 
-const convertToObject = () => {
-//     doc._id = doc._id.toString()
-//     doc.createdAt = doc.createdAt.toString()
-//     doc.updatedAt = doc.updatedAt.toString()
-//     return doc
- }
-
-const db = {connect, disconnect, convertToObject}
+const db = {connect, disconnect}
 
 export default db

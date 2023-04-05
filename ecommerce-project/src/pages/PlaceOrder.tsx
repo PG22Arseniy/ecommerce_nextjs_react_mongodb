@@ -18,6 +18,7 @@ const Order = () => {
 
     const router = useRouter()
 
+
     const PlaceOrder =  async () => {
 
         const order: OrderType = {
@@ -25,17 +26,21 @@ const Order = () => {
             shippingAddress: shippingAddress,
             paymentMethod: PaymentMethod,
             orderPrice: cart.GetCartPrice()
+        }  
+
+        try {
+            const {data} =  await axios.post('/api/orders', order)
+
+            console.log(data._id)  
+
+            router.push(`/order/${data._id}`) 
+            
         }
-
-       // const {data} = await axios.post('/api/orders', order)
+        catch (error) {
+            console.log(error)
+        } 
  
-       // router.push(`/order/${data._id}`) 
     }
-
-    // Null OR Empty Check 
-    //if (!cart || cart.cartItems.length === 0)
-    //if (true)  
-    // return ( <Layout> <div> No Items in Store <a href="/"> Go Shopping </a> </div> </Layout>) 
 
     return (
         <Layout>

@@ -1,7 +1,6 @@
 import { CheckoutComp } from "@/components/CheckoutComp";
 import { CustomButton } from "@/components/CustomButton";
 import { Layout } from "@/components/Layout";
-import { ShippingAddressProps } from "@/types";
 import { STORE_ACTION_TYPE, useStoreContext } from "@/utils/Store";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -44,7 +43,7 @@ const Shipping = () => {
         }))
 
 
-        router.push ("/payment") 
+        router.push ("/PaymentMethod")  
      }
 
     return (

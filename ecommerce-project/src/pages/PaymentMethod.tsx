@@ -5,12 +5,13 @@ import { Highlight } from "@/global";
 import { PAYMENT_METHOD, STORE_ACTION_TYPE, useStoreContext } from "@/utils/Store";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 
-const Payment = () => {
+const PaymentMethod = () => {
 
     const router = useRouter()
     const {state, dispatch} = useStoreContext();
+
     //type PM = keyof typeof PAYMENT_METHOD 
     const [selectedPM, setSelectedPM] = useState<string>(state.cart.PaymentMethod)
 
@@ -28,7 +29,7 @@ const Payment = () => {
 
         Cookies.set('PaymentMethod', selectedPM) 
 
-        router.push("/order") 
+        router.push("/PlaceOrder")  
     }
 
     return (
@@ -62,4 +63,4 @@ const Payment = () => {
     )
 }
 
-export default Payment 
+export default PaymentMethod 

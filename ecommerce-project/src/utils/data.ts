@@ -9,12 +9,14 @@ type DataProps = {
 export const data:DataProps = { 
     users:[ 
         {
+            _id: 1,
             name: "Senya",
             email: "arseniyskudaev@gmail.com",
             password: bcrypt.hashSync("Zagusi99"),
             isAdmin: true
         },
         {
+            _id: 2,
             name: "Leva",
             email: "levka.skudaev@mail.ru",
             password: bcrypt.hashSync("Uposuv58"),

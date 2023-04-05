@@ -30,6 +30,10 @@
 
         }
 
+        a{
+            text-decoration: none; 
+        } 
+
         .enabled {
             border-color: #6366F1; 
             color: #6366F1;
@@ -42,6 +46,7 @@
         .currentStep {
             border-bottom: #6366F1 1px solid;  
         } 
+
     }
 }
 

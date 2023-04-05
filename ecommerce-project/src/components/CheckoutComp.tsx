@@ -1,3 +1,4 @@
+import { useStoreContext } from "@/utils/Store";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -10,13 +11,15 @@ export const CheckoutComp = (props: CheckoutProps) => {
 
     const router = useRouter()
 
+    const {state} = useStoreContext();
+
     const PreviousStep = ()=> {
         switch (props.activeStep) {
             case 2:
-                router.push('/shipping')
+                router.push('/ShippingAddress')
                 break;
             case 3:
-                router.push('/payment')  
+                router.push('/PaymentMethod')   
                 break;     
             default:
                 break;
@@ -42,10 +45,12 @@ export const CheckoutComp = (props: CheckoutProps) => {
                 </button>
             </div>
             <div className="checkoutComp">
-                {['Login', 'Address', 'Payment', 'Order'].map (
+                {['Login', 'ShippingAddress', 'PaymentMethod', 'PlaceOrder'].map (
                     (step, index) => (
-                        <div
+                        <a
+                        href={step}
                         key={step}
+                        
                         className={`checkoutStep 
                             ${
                                 index <= props.activeStep
@@ -60,8 +65,8 @@ export const CheckoutComp = (props: CheckoutProps) => {
                             
                         `}
                         > 
-                        {step} 
-                        </div>
+                        {step}   
+                        </a>
                     )
                 )}
             </div>

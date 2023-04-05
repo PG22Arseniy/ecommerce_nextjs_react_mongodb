@@ -2,7 +2,7 @@ import { CartItemProps, ProductProps, ShippingAddressProps } from '@/types';
 import {Dispatch, ReactNode, createContext, useContext, useReducer} from 'react'
 import Cookies from 'js-cookie'
 import { stat } from 'fs';
-import order from '@/pages/order';
+import order from '@/pages/PlaceOrder';
 
 export const enum STORE_ACTION_TYPE {
     ADD_TO_CART,

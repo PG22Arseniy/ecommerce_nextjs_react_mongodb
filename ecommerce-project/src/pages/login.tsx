@@ -22,7 +22,7 @@ const Login = (props: LoginProps) => {
     useEffect(()=>{
         if (session?.user){
             if (document.location.search.includes("checkout"))
-                router.push('/shipping')
+                router.push('/ShippingAddress')
             else    
                 router.push('/')  
         }

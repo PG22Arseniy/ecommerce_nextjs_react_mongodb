@@ -30,9 +30,9 @@ const Cart = () => {
     const checkoutHandler = () => {
 
         if (session?.user)
-            router.push ("/shipping") 
+            router.push ("/ShippingAddress")  
         else
-            router.push("/login?checkout")   
+            router.push("/Login?checkout")   
 
     }
 

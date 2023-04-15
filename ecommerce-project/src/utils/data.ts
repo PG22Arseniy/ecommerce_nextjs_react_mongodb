@@ -1,22 +1,20 @@
-import { ProductProps, UsersProps } from "@/types"
+import { OrderType, ProductProps, UsersProps } from "@/types"
 import bcrypt from 'bcryptjs'
 
 
 type DataProps = {
     users: UsersProps[],
-    products: ProductProps[]
+    products: ProductProps[],
 }
 export const data:DataProps = { 
     users:[ 
         {
-            _id: 1,
             name: "Senya",
             email: "arseniyskudaev@gmail.com",
             password: bcrypt.hashSync("Zagusi99"),
             isAdmin: true
         },
         {
-            _id: 2,
             name: "Leva",
             email: "levka.skudaev@mail.ru",
             password: bcrypt.hashSync("Uposuv58"),

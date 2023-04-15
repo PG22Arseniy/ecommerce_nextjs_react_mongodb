@@ -2,8 +2,9 @@ import db from "@/utils/db"
 import User from "../../../models/User"
 import { data } from "@/utils/data";
 import Product from "../../../models/Product";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = async(req: Request, res: Response) => {
+const handler = async(req: NextApiRequest, res: NextApiResponse) => { 
     await db.connect()
     await User.deleteMany();
     await User.insertMany(data.users)    

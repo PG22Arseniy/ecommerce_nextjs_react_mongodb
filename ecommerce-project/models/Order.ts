@@ -21,6 +21,9 @@ const OrderSchema = new mongoose.Schema(
         }, 
         paymentMethod: {type: String},
         orderPrice: {type: Number},
+        userEmail: {type: String},
+        paid: {type: Boolean},
+        delivered: {type: Boolean}, 
         orderDate: {type: Date}
     },
     {

@@ -21,8 +21,7 @@ export type CartItemProps = {
     quantity: number,  
 }
 
-export type UsersProps = {
-    _id: Number
+export type UsersProps = { 
     name: string,
     email: string,
     password: string,
@@ -49,5 +48,7 @@ export type OrderType = {
     shippingAddress: ShippingAddressProps,
     paymentMethod: PAYMENT_METHOD,
     orderPrice: Number,
-    userEmail: string
+    userEmail: string,
+    paid: Boolean,
+    delivered: Boolean
 }

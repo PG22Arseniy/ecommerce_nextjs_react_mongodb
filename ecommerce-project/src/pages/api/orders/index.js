@@ -1,9 +1,12 @@
+
 import Order from "../../../../models/Order" 
 import db from '../../../utils/db';
 
 const handler = async (req, res) => {
 
   await db.connect();
+
+  console.log (req.body) 
   const newOrder = new Order({
     ...req.body,
   });

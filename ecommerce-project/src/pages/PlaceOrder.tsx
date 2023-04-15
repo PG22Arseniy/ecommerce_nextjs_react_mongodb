@@ -27,16 +27,14 @@ const Order = () => {
 
     const PlaceOrder = async () => {
 
-
-
-
-
         const order: OrderType = {
             orderItems: [],
             shippingAddress: shippingAddress,
             paymentMethod: PaymentMethod,
             orderPrice: cart.GetCartPrice(),
-            userEmail: session?.user?.email!
+            userEmail: session?.user?.email!,
+            paid: false,
+            delivered: false
         }
         cartItems.map(item => {
             order.orderItems.push({ price: item.product.price, slug: item.product.slug, quantity: item.quantity, name: item.product.name })
@@ -49,7 +47,7 @@ const Order = () => {
             console.log(order)
             const {data} = await axios.post('/api/orders', order)
             console.log(data._id) 
-            // await router.push(`/order/${data._id}`)  
+            await router.push(`/order/${data._id}`)   
 
         }
         catch (error) {

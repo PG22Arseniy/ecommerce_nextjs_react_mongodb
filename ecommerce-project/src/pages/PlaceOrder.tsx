@@ -4,9 +4,13 @@ import { Layout } from "@/components/Layout";
 import { OrderType } from "@/types";
 import { useStoreContext } from "@/utils/Store";
 import axios from "axios";
+import { randomInt } from "crypto";
+import { ObjectId } from "mongodb";
+import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React from "react";
+
 
 const Order = () => {
 
@@ -18,28 +22,40 @@ const Order = () => {
 
     const router = useRouter()
 
+    const {status, data:session} = useSession()
 
-    const PlaceOrder =  async () => {
+
+    const PlaceOrder = async () => {
+
+
+
+
 
         const order: OrderType = {
-            orderItems: cartItems,
+            orderItems: [],
             shippingAddress: shippingAddress,
             paymentMethod: PaymentMethod,
-            orderPrice: cart.GetCartPrice()
-        }  
+            orderPrice: cart.GetCartPrice(),
+            userEmail: session?.user?.email!
+        }
+        cartItems.map(item => {
+            order.orderItems.push({ price: item.product.price, slug: item.product.slug, quantity: item.quantity, name: item.product.name })
+        })
+        
+
 
         try {
-            const {data} =  await axios.post('/api/orders', order)
 
-            console.log(data._id)  
+            console.log(order)
+            const {data} = await axios.post('/api/orders', order)
+            console.log(data._id) 
+            // await router.push(`/order/${data._id}`)  
 
-            router.push(`/order/${data._id}`) 
-            
         }
         catch (error) {
             console.log(error)
-        } 
- 
+        }
+
     }
 
     return (
@@ -60,17 +76,17 @@ const Order = () => {
                                     <div className="address"> {Object.values(shippingAddress).map((value) => <p key={value}> {value}; </p>)} </div>
                                     <a href="/shipping"> Edit </a>
                                 </div>
- 
+
                                 <div className="card">
                                     <h2> Payment Method </h2>
-                                    <p>{PaymentMethod}</p> 
+                                    <p>{PaymentMethod}</p>
                                     <a href="/payment"> Edit </a>
                                 </div>
 
                                 <div className="card">
-                                    <h2> Order Summary </h2> 
+                                    <h2> Order Summary </h2>
                                     {cartItems.map(item => (
-                                        <div key={item.product.slug}> 
+                                        <div key={item.product.slug}>
                                             <p>{item.product.name}: <span>{item.quantity} </span> </p>
                                         </div>
                                     ))}

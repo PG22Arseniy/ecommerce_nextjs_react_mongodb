@@ -1,0 +1,18 @@
+.orderScreen{
+    .stepDone {
+        background-color: greenyellow;
+    }
+    .stepNotDone{
+        background-color: red; 
+    }
+
+    .payment{ 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;  
+        p{
+            text-align: center; 
+        }
+    }
+     
+}

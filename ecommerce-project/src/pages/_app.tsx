@@ -9,6 +9,7 @@ import "../styles/Auth.scss"
 import "../styles/Global.scss" 
 import "../styles/Collection.scss"  
 import "../styles/Checkout.scss" 
+import "../styles/Order.scss" 
 import 'react-toastify/dist/ReactToastify.css'  
 import { StoreProvider } from '@/utils/Store'
 import {SessionProvider} from 'next-auth/react' 

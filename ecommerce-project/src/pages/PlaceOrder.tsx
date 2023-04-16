@@ -59,14 +59,14 @@ const Order = () => {
     return (
         <Layout>
             <CheckoutComp activeStep={3} />
-            <div className="OrderScreen">
+            <div>
                 {
                     cartItems.length === 0
                         ? (
                             <div> <h1> No Items in Store </h1>  <a href="/"> Go Shopping </a> </div>
                         )
                         : (
-                            <div className="orderScreen">
+                            <div className="placeOrderScreen">
                                 <h1> Place Order </h1>
 
                                 <div className="card">

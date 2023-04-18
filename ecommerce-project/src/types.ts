@@ -1,5 +1,6 @@
 
 
+import { ObjectId } from "mongodb"
 import { PAYMENT_METHOD } from "./utils/Store"
 
 export type ProductProps = {
@@ -44,6 +45,7 @@ type OrderItem = {
     quantity:number
 }
 export type OrderType = {
+    _id?: ObjectId 
     orderItems: OrderItem[],
     shippingAddress: ShippingAddressProps,
     paymentMethod: PAYMENT_METHOD,

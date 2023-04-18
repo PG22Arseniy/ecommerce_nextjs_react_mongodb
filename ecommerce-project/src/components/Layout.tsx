@@ -25,12 +25,13 @@ export const Layout = ({title, children}:LayoutProps) =>{
 
     useEffect (()=>{
         setItemsCount(cart.GetCartItemCount())
-    },[cart.cartItems]) 
+
+    },[cart.cartItems])   
 
     const Logout = () => {
         Cookies.remove('cart')
         if (state.cart.cartItems.length > 0)
-            dispatch({type:STORE_ACTION_TYPE.CART_RESET, payload : { item:state.cart.cartItems[0]! }});
+            dispatch({type:STORE_ACTION_TYPE.CART_RESET, payload : {} }); 
         signOut({callbackUrl:'/login'})
     } 
 
@@ -59,7 +60,7 @@ return (
                     <div className="CartLogin"> 
                         <Link href="/cart" className="headerLink">   
                             <p>Cart</p>   
-                            {
+                            { 
                                 cart.cartItems != null && cartItemsCount > 0 
                                 ? <span className="cartNum">{cartItemsCount} </span>
                                 : ''
@@ -83,7 +84,7 @@ return (
                                                     </DropDownLink>
                                                 </Menu.Item>
                                                 <Menu.Item>
-                                                    <DropDownLink className = "dropdownLink" href="/order-history">
+                                                    <DropDownLink className = "dropdownLink" href="/orders">
                                                         Order History
                                                     </DropDownLink>
                                                 </Menu.Item>

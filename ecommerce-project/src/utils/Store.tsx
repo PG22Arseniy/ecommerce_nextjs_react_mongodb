@@ -140,6 +140,10 @@ const reducer = (state: typeof initialState,  action: StoreAction):  typeof init
 
         case STORE_ACTION_TYPE.CART_RESET: {
             const cartItems: (CartItemProps)[] = [];
+
+            Cookies.remove('cartItems') 
+            Cookies.remove('shippingAddress')  
+            Cookies.remove('PaymentMethod')
             return {...state, cart: {...state.cart, cartItems }} 
         }   
 

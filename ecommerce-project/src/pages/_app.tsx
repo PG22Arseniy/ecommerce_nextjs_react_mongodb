@@ -13,13 +13,17 @@ import "../styles/Order.scss"
 import 'react-toastify/dist/ReactToastify.css'  
 import { StoreProvider } from '@/utils/Store'
 import {SessionProvider} from 'next-auth/react' 
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+import { env } from 'process'
 
 
 export default function App({ Component, pageProps:{session, ...pageProps} }: AppProps) {
   return  (
     <SessionProvider session={session}>
       <StoreProvider>
-        <Component {...pageProps} /> 
+        <PayPalScriptProvider deferLoading={true} options={{ "client-id": process.env.PAYPAL_CLIENT_ID!}}> 
+          <Component {...pageProps} /> 
+        </PayPalScriptProvider>
       </StoreProvider> 
     </SessionProvider>
   )

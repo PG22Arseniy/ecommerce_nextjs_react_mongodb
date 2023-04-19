@@ -2,9 +2,12 @@ import { CustomButton } from "@/components/CustomButton";
 import { Layout } from "@/components/Layout";
 import { OrderType } from "@/types";
 import { PAYMENT_METHOD } from "@/utils/Store";
+import { PayPalButtons,  SCRIPT_LOADING_STATE,  usePayPalScriptReducer} from "@paypal/react-paypal-js";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import {OnApproveData, OnApproveActions, CreateOrderData, CreateOrderActions} from "@paypal/paypal-js/types/components/buttons";
+import { toast } from "react-toastify";
 
 const Order = () => {
 
@@ -16,23 +19,70 @@ const Order = () => {
 
     const [order, setOrder] = useState<OrderType|null>(null)
 
+    const [{isPending}, paypalDispatch] = usePayPalScriptReducer()
+
+
     useEffect(()=>{
 
         const fetchOrder = async()=> {
             if (!id) return 
             const {data} = await axios.get(`/api/orders/${id}`) 
-            console.log (data) 
+
             setOrder(data)   
         }
 
         fetchOrder()
 
+        if (!order) return 
+        
+        const loadPaypalScript = async() => {
+            const {data: clientId} = await axios.get('/api/keys/paypal')
+            paypalDispatch({
+                type:"resetOptions",
+                value: {
+                    'client-id': clientId,
+                    currency: 'CAD'
+                }
+            })
 
-    },[id]) 
+            paypalDispatch({type: 'setLoadingStatus', value: SCRIPT_LOADING_STATE.PENDING})
+        }
+
+        loadPaypalScript();
+
+
+
+
+    },[id, paypalDispatch]) 
 
 
     const PayOrder = ()=> {
         console.log ("payment")
+    }
+
+    function createOrder(data: CreateOrderData, actions: CreateOrderActions): Promise<string> {
+        return actions.order.create({
+            purchase_units:[
+                {
+                   // amount: {value: order?.orderPrice.toString()!} 
+                    amount: {value: "1"}  
+                }
+            ]
+        }). then ((orderID)=>{
+            return orderID
+        })
+    }
+
+    function onApprove(data: OnApproveData, actions: OnApproveActions): Promise<void> {
+        return actions.order?.capture().then (async function (details) {
+            try {
+                const {data} = await axios.put(`/api/orders/${order?._id}/pay`, details)
+                toast.success("Order has been paid" + data) 
+            }
+            catch {
+
+            }
+        })!
     }
 
     return(
@@ -71,11 +121,21 @@ const Order = () => {
                             order.paymentMethod === PAYMENT_METHOD.CASH.toUpperCase()?  
                                <div className="stepDone"> Payment on Delivery </div> 
                             :
-                            <div className="payment">  
+                            <div className="payment">   
                                 <p className="stepNotDone"> Unpaid </p> 
-                                <CustomButton onClick={PayOrder}> Pay with {order.paymentMethod} </CustomButton> 
-                            </div>
-                        } 
+
+                                {
+                                    order.paymentMethod === PAYMENT_METHOD.PAYPAL.toUpperCase()
+                                    ?  
+                                    <PayPalButtons createOrder={createOrder} onApprove={onApprove}>
+                                        Pay With Paypal
+                                    </PayPalButtons>
+                                    :
+                                    <CustomButton onClick={PayOrder}> Pay with {order.paymentMethod} </CustomButton> 
+                                }
+                                </div>
+                              
+                        }  
                     </div>  
 
                     <div className="card">

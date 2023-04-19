@@ -1,6 +1,6 @@
 import db from "@/utils/db"
 import { NextApiRequest, NextApiResponse } from "next"
-import Order from "../../../../models/Order"
+import Order from "../../../../../models/Order"
 
  const handler = async (req: NextApiRequest, res:NextApiResponse) => {
 

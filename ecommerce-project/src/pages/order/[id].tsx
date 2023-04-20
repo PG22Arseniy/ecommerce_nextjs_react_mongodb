@@ -53,7 +53,7 @@ const Order = () => {
 
 
 
-    },[id, paypalDispatch]) 
+    },[id, paypalDispatch, order?.paid])    
 
 
     const PayOrder = ()=> {
@@ -75,9 +75,11 @@ const Order = () => {
 
     function onApprove(data: OnApproveData, actions: OnApproveActions): Promise<void> {
         return actions.order?.capture().then (async function (details) {
-            try {
+            try { 
                 const {data} = await axios.put(`/api/orders/${order?._id}/pay`, details)
-                toast.success("Order has been paid" + data) 
+                window.location.reload(); 
+
+                
             }
             catch {
 
@@ -132,9 +134,9 @@ const Order = () => {
                                     </PayPalButtons>
                                     :
                                     <CustomButton onClick={PayOrder}> Pay with {order.paymentMethod} </CustomButton> 
-                                }
-                                </div>
-                              
+                                }    
+                                </div>    
+                               
                         }  
                     </div>  
 

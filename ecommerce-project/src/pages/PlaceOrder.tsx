@@ -2,7 +2,7 @@ import { CheckoutComp } from "@/components/CheckoutComp";
 import { CustomButton } from "@/components/CustomButton";
 import { Layout } from "@/components/Layout";
 import { OrderType } from "@/types";
-import { useStoreContext } from "@/utils/Store";
+import { STORE_ACTION_TYPE, useStoreContext } from "@/utils/Store";
 import axios from "axios";
 import { randomInt } from "crypto";
 import { ObjectId } from "mongodb";
@@ -43,12 +43,12 @@ const Order = () => {
 
 
         try {
-
-            console.log(order)
             const {data} = await axios.post('/api/orders', order)
-            console.log(data._id) 
-            await router.push(`/order/${data._id}`)   
 
+            await router.push(`/order/${data._id}`)  
+            
+            dispatch({type: STORE_ACTION_TYPE.CART_RESET, payload: {}}) 
+ 
         }
         catch (error) {
             console.log(error)
